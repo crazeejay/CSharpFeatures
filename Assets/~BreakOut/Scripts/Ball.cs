@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Breakout
+namespace BreakOut
 {
 
     public class Ball : MonoBehaviour
     {
+        public GameManager gameManager;
+
         public float speed = 5f; // speed at which the ball travels
 
         private Vector3 velocity; // Direction x speed
@@ -25,6 +27,15 @@ namespace Breakout
             Vector3 reflect = Vector3.Reflect(velocity, contact.normal);
             // Redirecting the velocity to reflection
             velocity = reflect.normalized * velocity.magnitude;
+
+            //If we hit a block
+            if(other.gameObject.tag == "Block")
+            {
+                //Destroy that block
+                Destroy(other.gameObject);
+                //Increase Score via gameManager
+                gameManager.IncreaseScore();
+            }
         }
         // Update is called once per frame
         void Update()
