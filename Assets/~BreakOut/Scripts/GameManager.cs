@@ -12,6 +12,7 @@ namespace BreakOut
         public Vector2 offset = new Vector2(25f, 10f);
         public GameObject[] blockPrefabs;
 
+
         [Header("Debugging")]
         public bool isDebugging = false;
 

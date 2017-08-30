@@ -33,8 +33,7 @@ namespace BreakOut
             {
                 //Destroy that block
                 Destroy(other.gameObject);
-                //Increase Score via gameManager
-                gameManager.IncreaseScore();
+                
             }
         }
         // Update is called once per frame
