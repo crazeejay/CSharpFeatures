@@ -11,6 +11,7 @@ namespace Breakout
         public float movementSpeed = 20f;
         public Ball currentBall;
 
+        public bool isFired = false;
         public Vector3[] directions = new Vector3[]
         {
             new Vector3(0.5f, 0.5f), //index 0
@@ -35,9 +36,13 @@ namespace Breakout
 
         void CheckInput()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if (!isFired)
             {
-                Fire();
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Fire();
+                    isFired = true;
+                }
             }
         }
         void Movement()

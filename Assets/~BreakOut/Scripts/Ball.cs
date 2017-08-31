@@ -13,6 +13,8 @@ namespace BreakOut
 
         private Vector3 velocity; // Direction x speed
 
+        public int score = 0;
+
         //send the ball flying in a given direction
         public void Fire(Vector3 direction)
         {
@@ -33,8 +35,10 @@ namespace BreakOut
             {
                 //Destroy that block
                 Destroy(other.gameObject);
-                
+                score++;
             }
+
+
         }
         // Update is called once per frame
         void Update()
