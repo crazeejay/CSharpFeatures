@@ -32,7 +32,8 @@ namespace Minesweeper2D
         {
             //Clone tile prefab
             GameObject clone = Instantiate(tilePrefab);
-            clone.transform.position = pos; // position tile
+            clone.transform.position = new Vector2(tilePrefab.transform.position.x + x, tilePrefab.transform.position.y + y);
+            // position tile
             Tile currentTile = clone.GetComponent<Tile>(); //Get Tile component
             return currentTile; //return it
        }
@@ -67,6 +68,17 @@ namespace Minesweeper2D
                     tiles[x, y] = tile;
                 }
             }
+        }
+
+        public int GetAdjacentMineCountAt(Tile t)
+        {
+            int count = 0;
+
+            for (int x = -1; x <= 1; x++)
+            {
+                int desiredX = t.x + x;
+            }
+            return count;
         }
 
     }
