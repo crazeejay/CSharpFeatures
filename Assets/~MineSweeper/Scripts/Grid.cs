@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,14 +30,14 @@ namespace Minesweeper2D
         //functionality for spawning tiles
         Tile SpawnTile(Vector3 pos)
         {
-            //Clone tile prefab
+           //Clone tile prefab
             GameObject clone = Instantiate(tilePrefab);
-            clone.transform.position = new Vector2(tilePrefab.transform.position.x + x, tilePrefab.transform.position.y + y);
+            clone.transform.position = 
             // position tile
             Tile currentTile = clone.GetComponent<Tile>(); //Get Tile component
             return currentTile; //return it
        }
-
+       
         //spawns tiles  in a grid-like pattern
         void GenerateTiles()
         {
@@ -77,6 +77,7 @@ namespace Minesweeper2D
             for (int x = -1; x <= 1; x++)
             {
                 int desiredX = t.x + x;
+                int desiredY = t.y + y;
             }
             return count;
         }
@@ -84,3 +85,4 @@ namespace Minesweeper2D
     }
     
 }
+*/
