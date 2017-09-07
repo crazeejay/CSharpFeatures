@@ -12,6 +12,8 @@ namespace Minesweeper2D
         public int height = 10;
         public float spacing = .155f;
 
+
+
         private Tile[,] tiles;
 
         // Use this for initialization
@@ -19,12 +21,32 @@ namespace Minesweeper2D
         {
             //Generate tiles on startup
             GenerateTiles();
+
+
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                if (hit.collider != null)
+                {
+                    //SET tile to hit colliders Tile component
+                    Tile tile = hit.collider.gameObject.GetComponent<Tile>();
+                    //IF tile != null
+                    if (tile != null)
+                    {
+                        //LET adjacentMines = GetAdjacentMinesAtCount(tile)
+                        int adjacentMines = GetAdjacentMineCountAt(tile);
+                        //CALL tile.Reveal(adjacentMines) 
+                        tile.Reveal(adjacentMines);
+                    }
 
+                }
+            }
         }
 
         //functionality for spawning tiles
@@ -51,7 +73,7 @@ namespace Minesweeper2D
                     // Store half size for later use
                     Vector2 halfSize = new Vector2(width / 2, height / 2);
                     // Pivot tiles around Grid
-                    Vector2 pos = new Vector2(x - halfSize.x + offset, y - halfSize.y + offset);
+                    Vector2 pos = new Vector2(x - halfSize.x + 0.5f, y - halfSize.y + 0.5f);
                     // Apply spacing
                     pos *= spacing;
                     // Spawn the tile
@@ -73,12 +95,22 @@ namespace Minesweeper2D
 
             for (int x = -1; x <= 1; x++)
             {
-                int desiredX = t.x + x;
-                int desiredY = t.y + y;
+                for (int y = -1; y <= 1; y++)
+                {
+                    int desiredX = t.x + x;
+                    int desiredY = t.y + y;
+
+                    if (desiredX >= 0 && desiredY >= 0 && desiredX < width && desiredY < height)
+                    {
+                        Tile tile = tiles[desiredX, desiredY];
+                        if (tile.isMine)
+                        {
+                            count += 1;
+                        }
+                    }
+                }
             }
             return count;
         }
-
     }
-
 }

@@ -31,7 +31,7 @@ namespace Minesweeper2D
         void Start()
         {
             //Randomly decide if its a mine or not
-            isMine = Random.value < 0.5f;
+            isMine = Random.value < 0.05f;
         }
 
         public void Reveal(int adjacentMines, int mineState = 0)
@@ -42,7 +42,7 @@ namespace Minesweeper2D
             if(isMine)
             {
                 //Sets sprite to mine sprite
-                rend.sprite = emptySprites[mineState];
+                rend.sprite = mineSprites[mineState];
             }
             else
             {
