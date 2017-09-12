@@ -7,6 +7,17 @@ namespace Minesweeper2D
 
     public class Grid : MonoBehaviour
     {
+        public enum MineState
+        {
+            LOSS = 0,
+            WIN = 1
+        }
+        public enum MouseButton
+        {
+            LEFT_MOUSE = 0,
+            RIGHT_MOUSE = 1,
+            MIDDLE_OUSE = 2
+        }
         public GameObject tilePrefab;
         public int width = 10;
         public int height = 10;
@@ -89,6 +100,8 @@ namespace Minesweeper2D
             }
         }
 
+        //LET = Create variable SET = setting variable that exists
+
         public int GetAdjacentMineCountAt(Tile t)
         {
             int count = 0;
@@ -112,5 +125,47 @@ namespace Minesweeper2D
             }
             return count;
         }
+
+        public void FFuncover(int x, int y, bool[,] visited)
+        {
+            if (x >= 0 && y >= 0 && x <= width && y < height)
+            {
+                if (visited[x, y])
+                {
+                    return;
+                }
+
+                Tile tile = tiles[x, y];
+                int adjacentMines = GetAdjacentMineCountAt(tile);
+                tile.Reveal(adjacentMines);
+
+                if (adjacentMines > 0)
+                {
+                    return;
+                }
+
+                visited[x, y] = true;
+                {
+                    FFuncover(x - 1, y, visited);
+                    FFuncover(x + 1, y, visited);
+                    FFuncover(x, y - 1, visited);
+                    FFuncover(x, y + 1, visited);
+                }
+            }
+        }
+
+        public void UncoverMines(int mineState)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    Tile currentTile = tiles[x, y];
+                    if (currentTile isMine)   
+                }
+    }
+} 
     }
 }
+
+   
