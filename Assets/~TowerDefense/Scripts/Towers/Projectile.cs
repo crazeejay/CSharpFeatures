@@ -2,15 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour {
+namespace TowerDefense
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public class Projectile : MonoBehaviour
+    {
+        public float damage = 50f;
+        public float speed = 50f;
+        public Vector3 direction;
+        
+
+        // Use this for initialization
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if(velocity = direction.normalized * speed)
+            {
+              
+            }
+        }
+
+    }
 }
