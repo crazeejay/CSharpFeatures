@@ -26,10 +26,10 @@ namespace TowerDefense
 
         }
 
-        public void Fire(Enemy targetEnemy)
+      /*  public void Fire(Enemy targetEnemy)
         {
-            targetPos =  
+            targetPos = 
 
-        }
+        } */
     }
 }

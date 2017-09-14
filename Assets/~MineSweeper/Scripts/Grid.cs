@@ -161,11 +161,13 @@ namespace Minesweeper2D
                 for (int y = 0; y < height; y++)
                 {
                     Tile currentTile = tiles[x, y];
-                    if (currentTile isMine)   
+
                 }
+            }
+        }
     }
 } 
-    }
-}
+      
+   
 
    

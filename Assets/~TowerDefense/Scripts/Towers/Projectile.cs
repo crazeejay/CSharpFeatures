@@ -10,6 +10,7 @@ namespace TowerDefense
         public float damage = 50f;
         public float speed = 50f;
         public Vector3 direction;
+
         
 
         // Use this for initialization
@@ -21,10 +22,11 @@ namespace TowerDefense
         // Update is called once per frame
         void Update()
         {
-            if(velocity = direction.normalized * speed)
-            {
-              
-            }
+
+            //if (velocity = direction.normalized * speed)
+            //{
+            //    Projectile.position += velocity * Time.deltaTime;
+            //}
         }
 
     }
