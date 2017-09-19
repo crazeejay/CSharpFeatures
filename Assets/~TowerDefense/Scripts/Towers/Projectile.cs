@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TowerDefense
+/*namespace TowerDefense
 {
 
     public class Projectile : MonoBehaviour
@@ -22,12 +22,12 @@ namespace TowerDefense
         // Update is called once per frame
         void Update()
         {
-
-            //if (velocity = direction.normalized * speed)
-            //{
-            //    Projectile.position += velocity * Time.deltaTime;
-            //}
+            
+            if (Vector3 velocity = direction.normalized * speed)
+            {
+                Projectile.position += velocity * Time.deltaTime;
+            }
         }
 
     }
-}
+}*/
