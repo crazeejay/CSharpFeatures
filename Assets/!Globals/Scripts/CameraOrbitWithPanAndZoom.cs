@@ -34,7 +34,6 @@ namespace TowerDefense
 
         void Start()
         {
-            target.transform.SetParent(null);
 
             distance = Vector3.Distance(target.transform.position, transform.position);
 
