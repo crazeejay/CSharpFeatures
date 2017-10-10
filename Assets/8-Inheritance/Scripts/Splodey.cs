@@ -4,42 +4,35 @@ using UnityEngine;
 
 namespace Inheritance
 {
-
     public class Splodey : Enemy
     {
         [Header("Splodey")]
-        public float explosionRadius = 5f;
-        public float knockback = 20f;
+        public float splosionRadius = 5f;
+        public float splosionRate = 3f;
+        public float impactForce = 10f;
+        public GameObject splosionParticles;
 
-        //Polymorphism!
-        protected override void Attack()
+        private float splosionTimer = 0f;
+
+        public override void Attack()
         {
-            //Play animation
-            //Perform explosion physics!
-            Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
-            foreach (var hit in hits)
-            {
-                Health h = hit.gameObject.GetComponent<Health>();
-                if(h != null)
-                {
+            // Start splosion timer
+            //If splosionTimer > splosionRate
+            // {call explode()
 
-                    h.TakeDamage(damage);
-                }
-
-                Rigidbody r = hit.gameObject.GetComponent<Rigidbody>();
-                if(r != null)
-                {
-                    //Add explosionForce
-                    r.AddExplosionForce(knockback, transform.position, explosionRadius, 1, ForceMode.Impulse);
-                }
-            }
             
         }
 
-        protected override void OnAttackEnd()
+        void Explode()
         {
-            //GET RICKITTY RICKITTY WRECKED!
-            Destroy(gameObject);
+            //perform Physics OverlapSphere with splosionRate
+            //Loop through all hits
+            // IF player
+            // Add impact force to rigidbody
+
+            //Destroy self
         }
+
+
     }
 }

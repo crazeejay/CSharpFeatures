@@ -4,13 +4,21 @@ using UnityEngine;
 
 namespace Inheritance
 {
-
     public class Charger : Enemy
     {
         [Header("Charger")]
-        public float chargeForce = 5f;
-        public float knockback = 4.5f;
+        public float impactForce = 10f;
+        public float knockback = 5f;
 
-        
+        public override void Attack()
+        {
+            //Add force to self
+        }
+
+        void OnCollisionEnter(Collision col)
+        {
+            // If collision hits player
+               //add impactforce to player
+        }
     }
 }

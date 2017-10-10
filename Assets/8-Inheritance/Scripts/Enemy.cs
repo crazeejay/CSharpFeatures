@@ -5,62 +5,50 @@ using UnityEngine.AI;
 
 namespace Inheritance
 {
-
     public class Enemy : MonoBehaviour
     {
-        [Header("Base Enemy")]
+        [Header("Enemy")]
         public Transform target;
-        public float damage = 50f;
-        public float attackDuration = 2f;
-        public float attackRate = .5f;
+        public int health = 100;
+        public int damage = 20;
         public float attackRange = 2f;
-
-        protected Rigidbody rigid;
-        protected NavMeshAgent nav;
+        public float attackRate = 0.5f;
 
         private float attackTimer = 0f;
+        private NavMeshAgent nav;
+        private Rigidbody rigid;
 
-        // Use this for initialization
         void Awake()
         {
             nav = GetComponent<NavMeshAgent>();
             rigid = GetComponent<Rigidbody>();
         }
 
-        protected virtual void Attack() { }
-        protected virtual void OnAttackEnd() { }
-
-        IEnumerator AttackDelay(float delay)
+        void Update()
         {
-            //do this stuff now
-            nav.Stop();
-            yield return new WaitForSeconds(delay);
-            //do this stuff after delay
-            nav.Resume();
-            OnAttackEnd();
+            //Increase attack timer
+            attackTimer += Time.deltaTime;
+            //Get Distance from enemy to target
+            float distance = Vector3.Distance(transform.position, target.position);
+            //IF distance < attackRange
+            if(distance < attackRange)
+            {
+                // Call Attack()
+                Attack();
+                // reset attack timer
+                attackTimer = 0f;
+            }
+            //IF target != null
+            if(target != null)
+            {
+                //Navigate to target
+                nav.SetDestination(target.position);
+            }
         }
 
-        // Update is called once per frame
-        protected virtual void Update()
+        public virtual void Attack()
         {
-            //Set nav destination
-            nav.SetDestination(target.position);
-            // Increase Attack timer
-            attackTimer += Time.deltaTime;
-            // If attack Timer reaches the rate 
-            if(attackTimer >= attackRate)
-            {
-                //Get distance to target
-                float distance = Vector3.Distance(transform.position, target.position);
-                //IF close to target
-                if(distance <= attackRange)
-                {
-                    StartCoroutine(AttackDelay(attackDuration));
-                    Attack();
-                    attackTimer = 0f;
-                }
 
-            }
         }
     }
 }
