@@ -27,24 +27,50 @@ namespace AI
         void ComputeForces()
         {
             // SET force = Vector3.zero
-            //FOR i := 0 to behaviours.count (FOR tab tab) 
-            //LET behaviour = behaviour[i]
-            // IF behaviour.isActiveAndEnabled == false
-            //continue
-            //SET force = force + behaviour.GetForce() x weighting
-            //IF force.magnitude > maxVelocity
-            //SET force = force.normalized x maxVelocity
-            // break
+            force = Vector3.zero;
+            //FOR i := 0 to behaviours.count (FOR tab tab)
+            for (int i = 0; i < behaviours.Count; i++)
+            {
+                //LET behaviour = behaviour[i]
+                SteeringBehaviour behaviour = behaviours[i];
+                // IF behaviour.isActiveAndEnabled == false
+                if (behaviour.isActiveAndEnabled == false)
+                {
+                    //continue
+                    continue;
+                }
+                //SET force = force + behaviour.GetForce() x weighting
+                force = force + behaviour.GetForce() * behaviour.weighting;
+                //IF force.magnitude > maxVelocity
+                if (force.magnitude > maxVelocity)
+                {
+                    //SET force = force.normalized x maxVelocity
+                    force = force.normalized * maxVelocity;
+
+                    // break
+                    break;
+                }
+            }
         }
 
         void ApplyVelocity()
         {
             // SET velocity = velocity + Force x deltaTime
+            velocity = velocity + force * Time.deltaTime;
             //IF velocity.magnitude > maxVelocity
-            //SET velocity = velocity.normalized x maxVelocity
+            if (velocity.magnitude > maxVelocity)
+            {
+                //SET velocity = velocity.normalized x maxVelocity
+                velocity = velocity.normalized * maxVelocity;
+            }
             //IF velocity.magnitude > 0
-            //SET tarnsform.position = tranform.position + velocity x deltaTime\
-            // SET transform.rotation = Quaternion LookRotation (velocity)
+            if (velocity.magnitude > 0)
+            {
+                //SET tarnsform.position = tranform.position + velocity x deltaTime\
+                transform.position += velocity * Time.deltaTime;
+                // SET transform.rotation = Quaternion LookRotation (velocity)
+                transform.rotation = Quaternion.LookRotation(velocity);
+            }
 
         }
 
