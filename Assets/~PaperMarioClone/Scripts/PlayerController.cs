@@ -11,7 +11,7 @@ namespace PaperMarioClone
         public float walkSpeed = 20f;
         public float runSpeed = 30f;
         public float jumpHeight = 10f;
-        public bool moveInJump = false;
+        
         public bool isRunning = false;
 
         private CharacterController controller;
@@ -25,6 +25,7 @@ namespace PaperMarioClone
         private Vector3 movement;
         [HideInInspector]public Vector3 inputDir;
         private bool jump = false;
+        private bool jumpInstant = false;
 
         // Use this for initialization
         void Start()
@@ -60,30 +61,30 @@ namespace PaperMarioClone
                 gravity += Physics.gravity * Time.deltaTime;
             }
 
+            if(jumpInstant)
+            {
+                gravity.y = jumpHeight;
+                jumpInstant = false;
+            }
+
             //Apply movement
             movement += gravity;
             controller.Move(movement * Time.deltaTime);
         }
 
         //controller Jump
-        public void Jump()
+        public void Jump(bool instant = false)
         {
-            //JUMP NOW!
-            jump = true;
+            if (instant)
+                jumpInstant = true;
+            else
+                jump = true;
         }
 
         public void Move(float inputH, float inputV)
         {
-            //is moveInJump enabled? OR
-            //is moveInJump disabled AND controller isGrounded
-            if (moveInJump ||
-                (moveInJump == false && isGrounded))
-            {
-                inputDir = new Vector3(inputH, 0, inputV);
-            }
-
-            // Move Player based on inputdir
-            movement = inputDir;
+            Vector3 inputDir = new Vector3(inputH, 0, inputV);
+            movement = transform.TransformDirection(inputDir);
         }
 
     }
