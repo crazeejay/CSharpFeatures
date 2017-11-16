@@ -38,7 +38,7 @@ namespace MOBA
                 //Get current behaviour
                 SteeringBehaviour b = behaviours[i];
                 //Check if behaviour is active and enabled
-                if(!b.isActiveAndEnabled == false)
+                if(!b.isActiveAndEnabled)
                 {
                     //Skip over to next behaviour
                     continue;
@@ -46,7 +46,7 @@ namespace MOBA
                 //Apply behaviour's force to our final force
                 force += b.GetForce() * b.weighting;
                 //Check if behaviour is not active and enabled
-                if(!b.isActiveAndEnabled)
+                if(force.magnitude > maxSpeed)
                 {
                     //cap the force down to maxSpeed
                     force = force.normalized * maxSpeed;
@@ -71,14 +71,17 @@ namespace MOBA
                 velocity = velocity.normalized * maxSpeed;
             }
 
-            //Predict the next position
-            Vector3 pos = transform.position + velocity;
-            //Perform NavMesh Sampling
-            NavMeshHit navHit;
-            if(NavMesh.SamplePosition(pos, out navHit, maxDistance, -1))
+            if (velocity.magnitude > 0 && nav.updatePosition)
             {
-                //Set nav destination to nav hit position
-                nav.SetDestination(navHit.position);
+                //Predict the next position
+                Vector3 pos = transform.position + velocity;
+                //Perform NavMesh Sampling
+                NavMeshHit navHit;
+                if (NavMesh.SamplePosition(pos, out navHit, maxDistance, -1))
+                {
+                    //Set nav destination to nav hit position
+                    nav.SetDestination(navHit.position);
+                }
             }
         }
 
